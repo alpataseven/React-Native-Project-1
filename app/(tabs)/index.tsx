@@ -1,98 +1,162 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
+import { Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const [task, setTask] = useState("");
+  const [array, setArray] = useState<{ key: string; value: string; isCompleted: boolean }[]>([])
+
+  // Uygulama açılınca verileri çek
+  useEffect(() => {
+    loadData();
+  }, [])
+
+  const loadData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('tasks')
+      if (jsonValue != null) {
+        setArray(JSON.parse(jsonValue));
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  // Verileri telefona kaydet
+  const saveData = async (newArray: any) => {
+    try {
+      const jsonValue = JSON.stringify(newArray);
+      await AsyncStorage.setItem('tasks', jsonValue);
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+  const addTask = () => {
+    if (task.length === 0) return;
+
+    const newArray = [...array, {
+      key: Date.now().toString(),
+      value: task,
+      isCompleted: false
+    }];
+
+    setArray(newArray); // Ekranı güncelle
+    saveData(newArray); // Hafızaya kaydet
+    setTask("");
+  }
+
+  const toggleComplete = (id: string) => {
+    const newArray = array.map(item =>
+      item.key === id ? { ...item, isCompleted: !item.isCompleted } : item
+    );
+    setArray(newArray);
+    saveData(newArray);
+  }
+
+  const removeTask = (key: string) => {
+    const newArray = array.filter(item => item.key !== key);
+    setArray(newArray);
+    saveData(newArray);
+  }
+
+  return (
+    <View style={styles.container}>
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder='Görev Ekle'
+          onChangeText={setTask}
+          value={task}
+        />
+        <View>
+          <Button  style={styles.btn} title="Ekle" onPress={addTask} />
+        </View>
+      </View>
+
+      <FlatList
+        data={array}
+        renderItem={({ item }) => (
+          // Alert tetikleyen TouchableOpacity kaldırıldı, sadece View kaldı
+          <View style={[styles.box, item.isCompleted && styles.completedBox]}>
+            
+            <Text style={[styles.text, item.isCompleted && styles.textCompleted]}>
+              {item.value}
+            </Text>
+
+            <View style={styles.iconContainer}>
+              
+              <TouchableOpacity onPress={() => toggleComplete(item.key)}>
+                <Ionicons
+                  name={item.isCompleted ? "checkmark-circle" : "ellipse-outline"}
+                  size={28}
+                  color={item.isCompleted ? "green" : "gray"}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => removeTask(item.key)} style={{ marginLeft: 10 }}>
+                <Ionicons name="trash" size={28} color="red" />
+              </TouchableOpacity>
+
+            </View>
+          </View>
+        )}
+        keyExtractor={(item) => item.key}
+      />
+
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  box: {
+    padding: 15,
+    backgroundColor: '#c7ecee',
+    marginBottom: 10,
+    borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'space-between'
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  completedBox: {
+    backgroundColor: '#f0f0f0',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  input: {
+    width: '75%',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    padding: 10,
   },
+  text: {
+    fontSize: 16,
+    color: 'black',
+    maxWidth: '70%'
+  },
+  textCompleted: {
+    color: 'gray',
+    textDecorationLine: 'line-through'
+  },
+  iconContainer: {
+    flexDirection: 'row',
+  },
+  btn: {
+    borderRadius: 50, 
+  }
 });
