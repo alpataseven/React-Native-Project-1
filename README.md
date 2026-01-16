@@ -1,50 +1,82 @@
-# Welcome to your Expo app 👋
+# To Do App - Mobile Task Manager App 📝
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**(Türkçe İçerik Aşağıdadır 🇹🇷)**
 
-## Get started
+## 🇬🇧 English Description
 
-1. Install dependencies
+**To Do App** is a modern, persistent, and user-friendly To-Do List application built with **React Native** and **Expo**. It focuses on productivity with a clean UI, smooth animations, and essential task management features.
 
-   ```bash
-   npm install
-   ```
+### 🚀 Key Features
+* **Persistent Data:** Tasks are saved locally using `AsyncStorage`, so you never lose your data even if you close the app.
+* **Swipe to Delete:** Modern gesture controls powered by `React Native Gesture Handler` & `Reanimated`. Swipe left to delete a task!
+* **Smooth Animations:** Custom fade-in entry screens and interactive UI elements.
+* **Task Management:** Add, complete, delete, and organize tasks effortlessly.
+* **Optimized UX:** Solved common mobile issues like Android keyboard avoiding views and safe area handling.
+* **Deployment:** Successfully built and deployed as an Android APK using **EAS Build**.
 
-2. Start the app
+### 🛠 Tech Stack
+* **Framework:** React Native (Expo SDK 52)
+* **Language:** TypeScript
+* **Storage:** Async Storage
+* **Navigation:** Expo Router
+* **Animations:** React Native Reanimated
+* **Icons:** Ionicons
 
-   ```bash
-   npx expo start
-   ```
+### 📸 Screenshots
 
-In the output, you'll find options to open the app in a
+<img width="359" height="781" alt="image" src="https://github.com/user-attachments/assets/1b99d615-b170-485f-ab9f-d0964eefb5d2" />
+<br>
+<img width="359" height="780" alt="image" src="https://github.com/user-attachments/assets/bfc5d076-7157-46ab-9fc6-50e3d041c489" />
+<br>
+<img width="357" height="780" alt="image" src="https://github.com/user-attachments/assets/36c67cc4-084a-48b0-8c0a-def336e1a7d0" />
+<br>
+<img width="373" height="808" alt="image" src="https://github.com/user-attachments/assets/81d4417a-3248-4146-b550-eae6470d58eb" />
+<br>
+<img width="359" height="778" alt="image" src="https://github.com/user-attachments/assets/4cf04f13-7bc0-4ecd-872d-332d0f7ccc07" />
+<br>
+<img width="361" height="778" alt="image" src="https://github.com/user-attachments/assets/86e63711-9f8f-43c7-a1be-5557033397e0" />
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+### ⚙️ Installation
+1.  Clone the repository:
+    ```bash
+    git clone [https://github.com/yourusername/jotion.git](https://github.com/yourusername/jotion.git)
+    ```
+2.  Navigate to the project directory:
+    ```bash
+    cd todo-app
+    ```
+3.  Install dependencies:
+    ```bash
+    npm install
+    ```
+4.  Run the app:
+    ```bash
+    npx expo start
+    ```
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
-```
+## 🇹🇷 Türkçe Açıklama
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**To Do App**, **React Native** ve **Expo** kullanılarak geliştirilmiş, modern ve kullanıcı dostu bir görev yönetim uygulamasıdır. Temiz arayüzü, akıcı animasyonları ve veri kalıcılığı ile üretkenliğe odaklanır.
 
-## Learn more
+### 🚀 Başlıca Özellikler
+* **Kalıcı Hafıza:** Veriler `AsyncStorage` kullanılarak yerel hafızaya kaydedilir. Uygulamayı kapatsanız bile görevleriniz silinmez.
+* **Kaydırarak Silme (Swipe to Delete):** `Gesture Handler` ve `Reanimated` ile modern kaydırma hareketleri. Görevi silmek için sola kaydırmanız yeterli.
+* **Akıcı Animasyonlar:** Özel giriş ekranı (Splash Screen) ve etkileşimli arayüz animasyonları.
+* **Görev Yönetimi:** Görev ekleme, tamamlama ve silme işlemleri.
+* **Optimize Edilmiş UX:** Android klavye sorunları (KeyboardAvoidingView) ve güvenli alan (SafeArea) gibi mobil geliştirmede sık karşılaşılan sorunlar çözülmüştür.
+* **Yayınlama:** **EAS Build** kullanılarak başarıyla Android APK çıktısı alınmıştır.
 
-To learn more about developing your project with Expo, look at the following resources:
+### 🛠 Kullanılan Teknolojiler
+* **Framework:** React Native (Expo SDK 52)
+* **Dil:** TypeScript
+* **Depolama:** Async Storage
+* **Navigasyon:** Expo Router
+* **Animasyon:** React Native Reanimated
+* **İkonlar:** Ionicons
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+Developed with ❤️ by Alp
