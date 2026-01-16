@@ -78,5 +78,12 @@
 * **Animasyon:** React Native Reanimated
 * **İkonlar:** Ionicons
 
+## 📲 İndir ve Dene (Download)
+
+Uygulamanın çalışan son sürümünü (Android .apk) aşağıdaki linkten indirebilirsiniz:
+
+[<img src="https://img.shields.io/badge/Download-APK-success?style=for-the-badge&logo=android" width="200" />](https://github.com/alpataseven/React-Native-Project-1/releases/download/reactNative/application-ecb7a4b9-6173-4055-88af-a3edca16bf45.apk)
+
+*(Not: Linki, Releases sayfasında yüklediğin APK'nın üzerine sağ tıklayıp "Bağlantıyı kopyala" diyerek alabilirsin)*
 ---
 Developed with ❤️ by Alp
